@@ -1,0 +1,3 @@
+Return more than one value from functions at the same time
+Ability to declare an index in foreach
+Pointers

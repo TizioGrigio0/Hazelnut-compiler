@@ -57,7 +57,9 @@ public class Token {
                     if (type == TokenType.UNSET) type = TokenType.ARITHMETIC_SYMBOL;
                     else type = TokenType.INVALID;
                     endTokenOnWhitespace = true;
-                } // TODO make it able to get more than 1 char (<<)
+                }
+                // TODO make it able to get more than 1 char (<<)
+                // TODO make logical operators and find a way to differentiate between arithmetical operators (& &&, < << etc)
 
                 // Check for numbers
                 else if (Character.isDigit(c)) {
@@ -75,7 +77,10 @@ public class Token {
                     if (lastType == TokenType.UNSET) {
                         type = TokenType.IDENTIFIER;
                         endTokenOnWhitespace = true;
-                    } else if (lastType != TokenType.IDENTIFIER) { type = TokenType.INVALID; }
+                    } else if (lastType != TokenType.IDENTIFIER) {
+                        type = TokenType.INVALID;
+                        lastType = TokenType.INVALID;
+                    } // TODO FIX ME
                 }
 
                 // If none of the previous checks were right

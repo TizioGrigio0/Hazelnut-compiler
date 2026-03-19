@@ -36,6 +36,8 @@ public class Token {
 
         boolean isCharacterWhitespace = false;
         boolean endTokenOnWhitespace = false;
+        boolean hasPrefix = false;
+
 
         for(int i=0; i < length; i++) {
 
@@ -48,13 +50,16 @@ public class Token {
             if (!isCharacterWhitespace) {
 
                 // Check for known symbols
+                // TODO first thing, check for known symbols
+                // if (i == tokenStart)
                 if (c == '=') {
                     if (type == TokenType.UNSET) type = TokenType.EQUALS;
                     else type = TokenType.INVALID;
                     endTokenOnWhitespace = true;
                 }
                 else if (isValidArithmeticSymbol(c)) {
-                    if (type == TokenType.UNSET) type = TokenType.ARITHMETIC_SYMBOL;
+                    // TODO maximal munch on the map of symbols
+                    if (type == TokenType.UNSET) type = TokenType.PLUS; // TODO CHANGE ME
                     else type = TokenType.INVALID;
                     endTokenOnWhitespace = true;
                 }
@@ -71,7 +76,7 @@ public class Token {
                 }
 
                 // Check for identifiers
-                else if (Character.isAlphabetic(c) || isValidIdentifierChar(c) ) {
+                else if (Character.isAlphabetic(c)) {
 
                     // If it's the start of the token, set it as identifier
                     if (lastType == TokenType.UNSET) {
@@ -81,6 +86,17 @@ public class Token {
                         type = TokenType.INVALID;
                         lastType = TokenType.INVALID;
                     } // TODO FIX ME
+                }
+
+                else if (isUnderscore(c)) {
+                    if (lastType == TokenType.UNSET) {
+                        type = TokenType.IDENTIFIER;
+                        endTokenOnWhitespace = true;
+                        // Don't do anything if it's a number or an identifier
+                    } else if (lastType != TokenType.NUMBER && lastType != TokenType.IDENTIFIER){
+                        type = TokenType.INVALID;
+                        lastType = TokenType.INVALID;
+                    }
                 }
 
                 // If none of the previous checks were right
@@ -120,6 +136,19 @@ public class Token {
                 ", VALUE='" + value + '\'' +
                 ", POSITION=" + position +
                 '}';
+    }
+
+    static private boolean isValidNumberChar(char c) {
+        String allowedChars = "0123456789bxo";
+        int length = allowedChars.length();
+        for (int i=0; i<length; i++) {
+            if (c == allowedChars.charAt(i)) return true;
+        }
+        return false;
+    }
+
+    static private boolean isUnderscore(char c) {
+        return c == '_';
     }
 
     static private boolean isValidIdentifierChar(char c) {

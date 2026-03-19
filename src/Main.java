@@ -5,9 +5,8 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        TestTokenize("Epstein_x = 5y + o");
-        TestTokenize("1 -- 2");
-        TestTokenize("x01+01+01-x10");
+        TestTokenize("f = 1517_1_24");
+        TestTokenize("_f_a_1=123_123_123_");
     }
 
     private static void TestTokenize(String s) {

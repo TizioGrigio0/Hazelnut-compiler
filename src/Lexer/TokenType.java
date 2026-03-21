@@ -9,8 +9,8 @@ public enum TokenType {
     IDENTIFIER,                                 // x, xxx, x1
     NUMBER,                                     // 123, 0x123, 0b123
     STRING,                                     // " ... "
-    EOF("\0"),
     INVALID,
+    EOF("\0"),
     LEFT_PARENTHESIS("("), RIGHT_PARENTHESIS(")"),
     LEFT_BRACKET("{"),   RIGHT_BRACKET("}"),
     COMMA(","), DOT("."), COLON(":"), SEMICOLON(";"),
@@ -29,6 +29,7 @@ public enum TokenType {
     BREAK("break"),
     CONTINUE("continue"),
     GOTO("goto"),
+    RETURN("return"),
 
     // Types
     VOID("void"),
@@ -111,4 +112,10 @@ public enum TokenType {
         return SYMBOLS.get(s);
     }
 
+    public static boolean isSymbolOrKeyword(TokenType t) {
+        return switch (t) {
+            case UNSET, INVALID, NUMBER, STRING, IDENTIFIER -> false;
+            default -> true;
+        };
+    }
 }

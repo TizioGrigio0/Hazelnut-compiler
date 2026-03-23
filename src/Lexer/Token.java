@@ -1,6 +1,8 @@
 package Lexer;
 
 
+import Enums.TokenType;
+
 public class Token {
     private final TokenType type;       // The identifier of the type of the token
     private final String value;         // Value inside the token, might get converted later

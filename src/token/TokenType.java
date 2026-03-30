@@ -16,6 +16,7 @@ public enum TokenType {
     LEFT_SQUARE("["), RIGHT_SQUARE("]"),
     LEFT_BRACKET("{"),   RIGHT_BRACKET("}"),
     COMMA(","), DOT("."), COLON(":"), SEMICOLON(";"),
+    QUESTION_MARK("?"),
 
     // Literals
     BOOLEAN_LITERAL("true", "false", "TRUE", "FALSE"),

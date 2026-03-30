@@ -36,7 +36,7 @@ public class Lexer {
         while (!(this.source.isAtEnd())) {
             // Manage whitespaces
             while (Character.isWhitespace(this.source.peek())) this.source.advance();
-
+            if (this.source.isAtEnd()) break;
             // Get the token and add it to the list of tokens
             this.source.setTokenStart();
             Token scannedToken = scanToken(); // scanToken() will do source.advance() as needed

@@ -1,4 +1,4 @@
-package Enums;
+package token;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,16 +8,17 @@ public enum TokenType {
     UNSET,
     IDENTIFIER,                                 // x, xxx, x1
     NUMBER,                                     // 123, 0x123, 0b123
-    STRING,                                     // " ... "
+    CHAR_LITERAL,                               // ' ... '
+    STRING_LITERAL,                             // " ... "
     INVALID,
     EOF("\0"),
     LEFT_PARENTHESIS("("), RIGHT_PARENTHESIS(")"),
+    LEFT_SQUARE("["), RIGHT_SQUARE("]"),
     LEFT_BRACKET("{"),   RIGHT_BRACKET("}"),
     COMMA(","), DOT("."), COLON(":"), SEMICOLON(";"),
 
     // Literals
-    BOOLEAN_TRUE("true", "TRUE"),
-    BOOLEAN_FALSE("false", "FALSE"),
+    BOOLEAN_LITERAL("true", "false", "TRUE", "FALSE"),
     NULL_LITERAL("null", "NULL"),
     MAX_32("MAX_32"),                 // 0xFFFF_FFFF
     MAX_64("MAX_64"),                 // 0xFFFF_FFFF_FFFF_FFFF
@@ -38,6 +39,8 @@ public enum TokenType {
     FLOAT("float"),             // 32bit
     DOUBLE("double"),           // 64bit
     BOOL("bool", "boolean"),
+    CHAR("char"),
+    STRING("str", "string"),
 
     // Logical symbols
     EQUALS("=="),
@@ -79,9 +82,13 @@ public enum TokenType {
 
     // Bitwise operations
     BIT_AND("&"),
+    BIT_AND_ASSIGN("&="),
     BIT_OR("|"),
+    BIT_OR_ASSIGN("|="),
     BIT_NOT("~"),
-    BIT_XOR("^");
+    BIT_NOT_ASSIGN("~="),
+    BIT_XOR("^"),
+    BIT_XOR_ASSIGN("^=");
 
     private static final Map<String, TokenType> SYMBOLS = new HashMap<>();
     private final String[] aliases;
@@ -105,17 +112,10 @@ public enum TokenType {
             }
         }
 
-    }
+    } // static closure
 
     // Given a string, return it's token type (if it's a known symbol)
     public static TokenType decode(String s) {
         return SYMBOLS.get(s);
-    }
-
-    public static boolean isSymbolOrKeyword(TokenType t) {
-        return switch (t) {
-            case UNSET, INVALID, NUMBER, STRING, IDENTIFIER -> false;
-            default -> true;
-        };
     }
 }

@@ -2,3 +2,6 @@ Return more than one value from functions at the same time
 Ability to declare an index in foreach
 OOP, a class can extend from more than 1 class
 When it find +<number> or -<number>, it will automatically put a zero in front. The same won't happen if the - or + is at the end.
+
+OPTIMIZATIONS TO DO:
+Double negation gets simply cut out

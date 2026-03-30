@@ -1,11 +1,9 @@
-package Lexer;
+package token;
 
-
-import Enums.TokenType;
 
 public class Token {
     private final TokenType type;       // The identifier of the type of the token
-    private final String value;         // Value inside the token, might get converted later
+    private String value;               // Value inside the token
     private final int index;            // Token position in the whole text
     private final int line;             // Token line
     private final int position;         // Token position in the line
@@ -16,6 +14,14 @@ public class Token {
         this.index = index;
         this.line = line;
         this.position = position;
+    }
+
+    public boolean isInvalid() {
+        return (this.type == TokenType.INVALID);
+    }
+
+    public void setValue(String newValue) {
+        this.value = newValue;
     }
 
     @Override

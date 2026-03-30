@@ -1,3 +1,5 @@
+MIT License © TizioGrigio0
+
 # 🌰 Hazelnut compiler
 Compiler for a custom-made language that I made as a project in the free time.
 

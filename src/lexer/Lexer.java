@@ -1,5 +1,6 @@
 package lexer;
 
+import errorreporter.ErrorReporter;
 import token.tokenscanner.*;
 import token.TokenType;
 import token.Token;
@@ -10,12 +11,14 @@ import java.util.List;
 public class Lexer {
 
     // ----- Attributes -----
-    SourceCursor source = null;
-    List<TokenScanner> scanners = null;
+    private final SourceCursor source;
+    private final List<TokenScanner> scanners;
+    private final ErrorReporter reporter;
 
     // ----- Constructors -----
-    public Lexer(String input) {
+    public Lexer(String input, ErrorReporter reporter) {
         this.source = new SourceCursor(input.trim());
+        this.reporter = reporter;
         this.scanners = List.of(
                 new CommentScanner(),
                 new CharScanner(),

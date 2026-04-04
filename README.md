@@ -5,5 +5,5 @@ MIT License © TizioGrigio0
 Compiler for a custom-made language that I made as a project in the free time.
 
 ## Progress status:
-- Lexer ✔️ (Finished)
+- Lexer ✔️ (Fully working, but without error report)
 - Parser ⏳ (WIP)

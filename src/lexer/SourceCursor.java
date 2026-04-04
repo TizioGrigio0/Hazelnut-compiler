@@ -5,8 +5,8 @@ import token.*;
 public class SourceCursor {
 
     // Attributes
-    String input = "";
-    private int length = -1;
+    private final String input;
+    private final int length;
     private int currentIndex = 0;
     private int currentPositionInLine = 0;
     private int firstPositionInLine = 0;

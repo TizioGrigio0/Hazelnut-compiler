@@ -1,8 +1,9 @@
 MIT License © TizioGrigio0
 
-# 🌰 Hazelnut compiler
+<div style="text-align: center;"><h1> 🌰 Hazelnut compiler 🌰 </h1></div>
+
 Compiler for a custom-made language that I made as a project in the free time.
 
 ## Progress status:
-- Lexer ✔️ (100%)
-- Parser ⏳ (0%)
+- Lexer ✔️ (Finished)
+- Parser ⏳ (WIP)

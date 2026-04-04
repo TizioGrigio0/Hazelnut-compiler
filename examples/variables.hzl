@@ -1,0 +1,43 @@
+# This is a variable, the compiler will understand the type by itself
+var a0 = 42;                # i64 (default size for integers is 64-bits) (alias: long)
+# If smaller integers are needed, you need to specify the type
+var a1: i32 = 42;            # i32 (32-bits) (alias: int)
+var a2: i16 = 42;            # i16 (16-bits) (alias: short)
+
+# If we want to specify the type it's fine, but the compiler won't allow assigning a different type
+var b1: f64 = 42;             # f64 = int (invalid assignment, doesn't compile)
+
+# Unless specified otherwise, floating points will be 64-bits,
+var c0 = 42.0;              # f64 (the same as "double" in other languages)
+var c1: f32 = 42.0;          # f32 (the same as "float" in other languages)
+# The "double" and "float" syntaxes are still valid (and in fact just aliases for f32 and f64)
+var c2: float = 42.0;        # effectively the same as the variable "d" previously declared
+
+# You can use different numerical bases, and the type will default to i64 (cannot have floating point in other bases)
+var d0 = 0x2A;              # i64 (42)
+var d1 = 0b101010;          # i64 (42)
+var d2 = 0o52;              # i64 (42)
+
+# The "_" character is ignored in numbers, and can be used to make "reading big numbers" easier
+var e1 = 1000000;           # i64 (1000000)
+var e2 = 1_000_000;         # i64 (1000000)
+
+# If we want to define a new compile-time constant, we use the keyword "const"
+const f1 = 42;              # i64 (42) (constant)
+# "f1 = 41;" would give an error at compile time (cannot reassign a constant)
+# "const f1 = a+b" would also give an error (can't calculate at compile time)
+
+# If we want to define a non-modifiable variable, we use the keyword "final"
+final g1 = 42;              # i64 (42) (final)
+# "g1 = 41;" would give an error at compile time (cannot reassign a final)
+final g2 = a + b;           # i64 (final) (we can determine it at compile time, at the contrary of const)
+
+# By default, a variable can't be empty. If we want to make a variable that can be empty, we use "?"
+# var g1?;                  # If we declare a variable empty and without specifying the type, it will throw an error at compile time
+var g2? = 42.0;             # ?f64 (42.0)
+var g3: ?f32;               # ?f32 (empty)
+
+# Obviously, it's possible to combine all the previously said things and everything will still work
+var g1 = 0xFA_24_6C;        # i64 (16393324)
+const g2: f32 = 1.42_42_42;        # f32 (1.424242) (constant)
+

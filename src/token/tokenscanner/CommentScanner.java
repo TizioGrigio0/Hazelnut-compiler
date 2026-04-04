@@ -20,7 +20,7 @@ public class CommentScanner implements TokenScanner {
         // If it's only 1 #, then we manage it as a single line comment
         if (counter == 1) {
             // Keep eating everything until we reach the end of the line
-            while(source.peek() != '\n' && source.peek() != 'r' && source.peek() != '\0') {
+            while(source.peek() != '\n' && source.peek() != '\r' && source.peek() != '\0') {
                 source.advance();
             }
         }  // single line comment closure

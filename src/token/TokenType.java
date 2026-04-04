@@ -25,6 +25,9 @@ public enum TokenType {
     MAX_64("MAX_64"),                 // 0xFFFF_FFFF_FFFF_FFFF
 
     // Keywords
+    VAR("var"),
+    CONST("const"),
+    FINAL("final"),
     WHILE("while"),
     IF("if"), ELSE("else"),
     FOR("for"),
@@ -34,11 +37,11 @@ public enum TokenType {
     RETURN("return"),
 
     // Types
-    VOID("void"),
-    INT("int", "integer"),      // 32bit
-    LONG("long"),               // 64bit
-    FLOAT("float"),             // 32bit
-    DOUBLE("double"),           // 64bit
+    I16("short", "i16", "I16"),
+    I32("int", "integer", "i32", "I32"),        // 32bit
+    I64("long", "i64", "I64"),                  // 64bit
+    F32("float", "f32", "F32"),                 // 32bit
+    F64("double", "f64", "F64"),                // 64bit
     BOOL("bool", "boolean"),
     CHAR("char"),
     STRING("str", "string"),

@@ -10,6 +10,7 @@ public class SourceCursor {
     private int currentIndex = 0;
     private int currentPositionInLine = 0;
     private int firstPositionInLine = 0;
+    private int lineStart = 0;
     private int currentLine = 1;
     private int tokenStart = 0;
 
@@ -18,6 +19,15 @@ public class SourceCursor {
         // Pre-process the input
         this.input = input.replace("\r\n", "\n").replace("\r", "\n");
         length = this.input.length();
+    }
+
+    // Getters
+    public int getLine() {
+        return currentLine;
+    }
+
+    public int getColumn() {
+        return currentPositionInLine;
     }
 
     // Methods
@@ -69,12 +79,20 @@ public class SourceCursor {
         if (c == '\n') {
             this.currentLine++;
             this.currentPositionInLine = 0;
+            this.lineStart = currentIndex;
         }
     }
 
     /// Returns the string from the start of the token up to the current index (included)
     public String extractTokenString() {
         return input.substring(tokenStart, currentIndex);
+    }
+
+    /// Returns the content of the current line
+    public String getLineContent() {
+        int tempIndex = currentIndex;
+        while (input.charAt(tempIndex) != '\n' || input.charAt(tempIndex) != '\0') tempIndex++;
+        return input.substring(lineStart, tempIndex);
     }
 
     @Override

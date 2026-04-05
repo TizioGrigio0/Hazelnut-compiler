@@ -1,12 +1,17 @@
 package token.tokenscanner;
 
+import lexer.Lexer;
 import lexer.SourceCursor;
 import token.Token;
 import token.TokenType;
 
 import static token.tokenscanner.ScannerUtils.isIdentifiersChar;
 
-public class SymbolScanner implements TokenScanner {
+public class SymbolScanner extends TokenScanner {
+
+    public SymbolScanner(Lexer lexer) {
+        super(lexer);
+    }
 
     public boolean canScan(char c) {
         return true;

@@ -1,12 +1,17 @@
 package token.tokenscanner;
 
+import lexer.Lexer;
 import lexer.SourceCursor;
 import token.Token;
 import token.TokenType;
 
 import static token.tokenscanner.ScannerUtils.isIdentifiersChar;
 
-public class NumberScanner implements TokenScanner {
+public class NumberScanner extends TokenScanner {
+
+    public NumberScanner(Lexer lexer) {
+        super(lexer);
+    }
 
     public boolean canScan(char c) {
         return (c >= '0' && c <= '9');

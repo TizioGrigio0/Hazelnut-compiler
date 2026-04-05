@@ -1,9 +1,14 @@
 package token.tokenscanner;
 
+import lexer.Lexer;
 import lexer.SourceCursor;
 import token.*;
 
-public class StringScanner implements TokenScanner{
+public class StringScanner extends TokenScanner{
+
+    public StringScanner(Lexer lexer) {
+        super(lexer);
+    }
 
     public boolean canScan(char c) {
         return c == '"';

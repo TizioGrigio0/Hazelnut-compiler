@@ -1,5 +1,6 @@
 package lexer;
 
+import errorreporter.CompilerError;
 import errorreporter.ErrorReporter;
 import token.tokenscanner.*;
 import token.TokenType;
@@ -20,12 +21,12 @@ public class Lexer {
         this.source = new SourceCursor(input.trim());
         this.reporter = reporter;
         this.scanners = List.of(
-                new CommentScanner(),
-                new CharScanner(),
-                new StringScanner(),
-                new NumberScanner(),
-                new IdentifierScanner(),
-                new SymbolScanner()
+                new CommentScanner(this),
+                new CharScanner(this),
+                new StringScanner(this),
+                new NumberScanner(this),
+                new IdentifierScanner(this),
+                new SymbolScanner(this)
         );
     }
 
@@ -64,4 +65,18 @@ public class Lexer {
         throw new RuntimeException("No scanner found for character: " + firstChar);
     } // scanToken() closure
 
+    /// Produce an error
+    public void generateError(CompilerError.ErrorType errorType, LexerErrorMessage message, Object... errorArgs) {
+        String lineText = source.getLineContent();
+        reporter.pushError(
+                new CompilerError(
+                        message.format(errorArgs),
+                        source.getLine(),
+                        source.getColumn(),
+                        CompilerError.CompilerPhase.LEXER,
+                        errorType,
+                        lineText
+                        )
+        );
+    }
 }

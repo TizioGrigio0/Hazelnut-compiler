@@ -1,9 +1,16 @@
 package token.tokenscanner;
 
+import errorreporter.CompilerError;
+import lexer.Lexer;
+import lexer.LexerErrorMessage;
 import lexer.SourceCursor;
 import token.Token;
 
-public class CommentScanner implements TokenScanner {
+public class CommentScanner extends TokenScanner {
+
+    public CommentScanner(Lexer lexer) {
+        super(lexer);
+    }
 
     public boolean canScan(char c) {
         return (c == '#');
@@ -35,6 +42,7 @@ public class CommentScanner implements TokenScanner {
                 }
                 source.advance();
             } // while closure
+            lexer.generateError(CompilerError.ErrorType.WARNING, LexerErrorMessage.UNTERMINATED_LITERAL, "block comment");
         } // multi line comment closure
 
         return null;

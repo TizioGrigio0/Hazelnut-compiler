@@ -1,12 +1,18 @@
 package token.tokenscanner;
 
+import lexer.Lexer;
 import lexer.SourceCursor;
 import token.Token;
 
-public interface TokenScanner {
+public abstract class TokenScanner {
 
-    Token scan(SourceCursor source);
+    final Lexer lexer;
 
-    boolean canScan(char c);
+    public TokenScanner(Lexer lexer) {
+        this.lexer = lexer;
+    }
+
+    public abstract Token scan(SourceCursor source);
+    public abstract boolean canScan(char c);
 
 }

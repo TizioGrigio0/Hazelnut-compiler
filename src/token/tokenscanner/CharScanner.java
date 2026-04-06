@@ -1,9 +1,14 @@
 package token.tokenscanner;
 
-import lexer.SourceCursor;
+import errorreporter.CompilerError;
+import lexer.*;
 import token.*;
 
-public class CharScanner implements TokenScanner{
+public class CharScanner extends TokenScanner{
+
+    public CharScanner(Lexer lexer) {
+        super(lexer);
+    }
 
     public boolean canScan(char c) {
         return c == '\'';
@@ -18,13 +23,13 @@ public class CharScanner implements TokenScanner{
         source.setTokenStart(); // We don't need the first '
 
         int length = 0;
-
         while (true) {
             char currentChar = source.peek();
 
             // If we reached the end of the input without finishing the char
             if (currentChar == '\0') {
                 detected_type = TokenType.INVALID;
+                this.lexer.generateError(CompilerError.ErrorType.ERROR, LexerErrorMessage.UNTERMINATED_LITERAL,"character");
                 break;
             }
 
@@ -40,6 +45,7 @@ public class CharScanner implements TokenScanner{
                     case 't' -> sb.append('\t');
                     default -> {
                         detected_type = TokenType.INVALID;
+                        this.lexer.generateError(CompilerError.ErrorType.ERROR, LexerErrorMessage.INVALID_ESCAPE, hold);
                         sb.append("\\");
                         sb.append(hold);
                         length++;
@@ -58,13 +64,20 @@ public class CharScanner implements TokenScanner{
                 // Append it
                 sb.append(currentChar); length++; // Only add more length when appending
                 // If we get a non-ascii character, it's not a valid string
-                if (currentChar >= 256) { detected_type = TokenType.INVALID; }
+                if (currentChar >= 256) {
+                    detected_type = TokenType.INVALID;
+                    this.lexer.generateError(CompilerError.ErrorType.ERROR, LexerErrorMessage.INVALID_CHARACTER, currentChar);
+                }
             }
 
             source.advance();
         }
 
-        if (length != 1) detected_type = TokenType.INVALID;
+        if (length != 1) {
+            detected_type = TokenType.INVALID;
+            this.lexer.generateError(CompilerError.ErrorType.ERROR, LexerErrorMessage.MALFORMED_CHAR, sb.toString());
+        }
+
         Token token = source.generateTokenHere(detected_type);
         token.setValue(sb.toString());
         return token;

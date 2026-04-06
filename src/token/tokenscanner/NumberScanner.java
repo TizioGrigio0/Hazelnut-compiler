@@ -1,12 +1,19 @@
 package token.tokenscanner;
 
+import errorreporter.CompilerError;
+import lexer.Lexer;
+import lexer.LexerErrorMessage;
 import lexer.SourceCursor;
 import token.Token;
 import token.TokenType;
 
 import static token.tokenscanner.ScannerUtils.isIdentifiersChar;
 
-public class NumberScanner implements TokenScanner {
+public class NumberScanner extends TokenScanner {
+
+    public NumberScanner(Lexer lexer) {
+        super(lexer);
+    }
 
     public boolean canScan(char c) {
         return (c >= '0' && c <= '9');
@@ -68,6 +75,10 @@ public class NumberScanner implements TokenScanner {
         if (wasLastDecimalPoint || currentChar == '_') { // If the last character is a . or a _, then mark it as invalid
             // We are marking _ last character as invalid because it probably means that the user missed it, it could be a typo
             detected_type = TokenType.INVALID;
+        }
+
+        if (detected_type == TokenType.INVALID) {
+            lexer.generateError(CompilerError.ErrorType.ERROR, LexerErrorMessage.MALFORMED_NUMBER, source.extractTokenString());
         }
 
         return source.generateTokenHere(detected_type);

@@ -1,7 +1,6 @@
 package parser;
 
-import ast.AstNode;
-import ast.VariableAstNode;
+import ast.*;
 import errorreporter.ErrorReporter;
 import token.Token;
 import java.util.List;
@@ -16,8 +15,8 @@ public class Parser {
         this.reporter = reporter;
     }
 
-    public AstNode parse() {
-        return new VariableAstNode();
+    public AstExpression parse() {
+        return null;
     }
 
 }

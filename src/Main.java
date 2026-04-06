@@ -1,4 +1,4 @@
-import ast.AstNode;
+import ast.*;
 import errorreporter.ErrorReporter;
 import lexer.Lexer;
 import parser.Parser;
@@ -37,7 +37,7 @@ public class Main{
 
         // Parse the tokens and create the AST
         Parser parser = new Parser(tokens, reporter);
-        AstNode ast = parser.parse();
+        AstExpression ast = parser.parse();
     }
 
 }

@@ -22,9 +22,12 @@ public class TokenCursor {
         currentIndex++;
     }
 
+    public boolean isAtEnd() {
+        return currentIndex >= length;
+    }
     /// Returns the token at the currentIndex
     public Token peek() {
-        if (currentIndex >= length) return null;
+        if (isAtEnd()) return null;
         return tokens.get(currentIndex);
     }
 

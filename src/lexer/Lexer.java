@@ -40,13 +40,14 @@ public class Lexer {
         while (!(this.source.isAtEnd())) {
             // Manage whitespaces
             while (Character.isWhitespace(this.source.peek())) this.source.advance();
+
             if (this.source.isAtEnd()) break;
             // Get the token and add it to the list of tokens
             this.source.setTokenStart();
+
             Token scannedToken = scanToken(); // scanToken() will do source.advance() as needed
             if (scannedToken != null) tokens.add( scannedToken );
 
-            //System.out.println(tokens.getLast());
         } // while closure
 
         // EOF at the end of the input
@@ -67,11 +68,11 @@ public class Lexer {
 
     /// Produce an error
     public void generateError(CompilerError.ErrorType errorType, LexerErrorMessage message, Object... errorArgs) {
-        String lineText = source.getLineContent();
+        String lineText = source.getLineContent(source.getTokensFirstLine());
         reporter.pushError(
                 new CompilerError(
                         message.format(errorArgs),
-                        source.getLine(),
+                        source.getTokensFirstLine(),
                         source.getColumn(),
                         CompilerError.CompilerPhase.LEXER,
                         errorType,

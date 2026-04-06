@@ -54,21 +54,23 @@ public class CompilerError {
                 }
         }
 
-        sb.append("\"");
         sb.append(AnsiTextHandler.getItalic());
         sb.append(message);
         sb.append(AnsiTextHandler.getNoItalic());
-        sb.append("\"; at line: ");
+        sb.append("; at line: ");
         sb.append(line);
         sb.append(", column: ");
         sb.append(column);
         sb.append(", during ");
         sb.append(phase);
-        sb.append(" phase:\n\"");
+        sb.append(" phase:\n >>> ");
         sb.append(AnsiTextHandler.getItalic());
         sb.append(source);
         sb.append(AnsiTextHandler.getNoItalic());
-        sb.append("\"");
+        sb.append(" <<< \n");
+
+        for(int i=-5; i<column; i++) { sb.append(" "); }
+        sb.append("^");
 
         return sb.toString();
     } // formatError() closure

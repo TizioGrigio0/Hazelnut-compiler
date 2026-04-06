@@ -5,11 +5,9 @@ import java.util.List;
 
 public class ErrorReporter {
 
-    private final List<CompilerError> errors;
+    private final List<CompilerError> errors = new ArrayList<>();
 
-    public ErrorReporter() {
-        errors = new ArrayList<CompilerError>();
-    }
+    public ErrorReporter() {    }
 
     // Adds an error to the list
     public void pushError(CompilerError error) {
@@ -20,6 +18,7 @@ public class ErrorReporter {
     public boolean checkFailureAndPrintErrors() {
 
         boolean fatal = false;
+
         for (CompilerError error : this.errors) {
             if (error.getErrorType() == CompilerError.ErrorType.ERROR) fatal = true;
             System.out.println(error.formatError());

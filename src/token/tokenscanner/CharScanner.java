@@ -23,14 +23,13 @@ public class CharScanner extends TokenScanner{
         source.setTokenStart(); // We don't need the first '
 
         int length = 0;
-
         while (true) {
             char currentChar = source.peek();
 
             // If we reached the end of the input without finishing the char
             if (currentChar == '\0') {
                 detected_type = TokenType.INVALID;
-                this.lexer.generateError(CompilerError.ErrorType.ERROR, LexerErrorMessage.UNTERMINATED_LITERAL, "character");
+                this.lexer.generateError(CompilerError.ErrorType.ERROR, LexerErrorMessage.UNTERMINATED_LITERAL,"character");
                 break;
             }
 

@@ -16,7 +16,7 @@ public class Main{
 
         String inputCode;
         try {
-            inputCode = Files.readString(Path.of("examples/variables.hzl"));
+            inputCode = Files.readString(Path.of("examples/errors.hzl"));
         } catch(IOException e) {
             AnsiTextHandler.setRed();
             System.out.println("Something went wrong while trying to read the input file");

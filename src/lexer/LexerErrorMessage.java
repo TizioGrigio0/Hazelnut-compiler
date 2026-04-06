@@ -4,9 +4,9 @@ public enum LexerErrorMessage {
     MALFORMED_CHAR("Malformed char '%s'"),
     INVALID_CHARACTER("Invalid character: '%s'"),
     UNTERMINATED_LITERAL("Unterminated %s"),
-    MALFORMED_NUMBER("Malformed number '%s"),
+    MALFORMED_NUMBER("Malformed number '%s'"),
     INVALID_SYMBOL("Invalid symbol: '%s'"),
-    INVALID_ESCAPE("Invalid escape sequence: '\\%s");
+    INVALID_ESCAPE("Invalid escape sequence: '\\%s'");
 
     private final String errorMessage;
 

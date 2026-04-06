@@ -1,8 +1,6 @@
-var a = 0b2010;         # Gives the error "Malformed number"
-var b = 1.0.2;          # Gives the error "Malformed number"
-var c = a$$$b;          # Gives the error "Invalid symbol"
-var d = "\s";           # Gives the error "Invalid escape sequence"
-var e = 'aaa';          # Gives the error "Malformed char"
-var f = a;              ## This comment will give the warning "unterminated block comment"
-
-a
+var a = 0b2010;			# Gives the error "Malformed number"
+var b = 1.0.2;			# Gives the error "Malformed number"
+var c = a$$$b;			# Gives the error "Invalid symbol"
+var d = "\s";			# Gives the error "Invalid escape sequence"
+var e = 'aaa';			# Gives the error "Malformed char"
+var f = a;				## This comment will give the warning "unterminated block comment"

@@ -69,7 +69,13 @@ public class CompilerError {
         sb.append(AnsiTextHandler.getNoItalic());
         sb.append(" <<< \n");
 
-        for(int i=-5; i<column; i++) { sb.append(" "); }
+        sb.repeat(" ", 5);
+
+        for(int i=0; i<column; i++) {
+            if (source.charAt(i) == '\t') sb.append("\t");
+            else sb.append(" ");
+        }
+
         sb.append("^");
 
         return sb.toString();

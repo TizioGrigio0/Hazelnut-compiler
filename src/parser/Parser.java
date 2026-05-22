@@ -15,8 +15,10 @@ public class Parser {
         this.reporter = reporter;
     }
 
+    /*
     public AstExpression parse() {
         return null;
     }
+    */
 
 }

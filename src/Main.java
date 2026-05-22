@@ -31,13 +31,13 @@ public class Main{
         List<Token> tokens = lexer.tokenize();
 
         // Check if the lexer gave any problems, and eventually return
-        if (reporter.checkFailureAndPrintErrors()) {
-            return;
-        }
+        if (reporter.checkFailureAndPrintErrors()) return;
 
         // Parse the tokens and create the AST
         Parser parser = new Parser(tokens, reporter);
-        AstExpression ast = parser.parse();
+        //AstExpression ast = parser.parse();
+
+        if (reporter.checkFailureAndPrintErrors()) return;
     }
 
 }

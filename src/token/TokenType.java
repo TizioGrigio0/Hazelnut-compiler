@@ -12,10 +12,10 @@ public enum TokenType {
     STRING_LITERAL,                             // " ... "
     INVALID,
     EOF("\0"),
-    LEFT_PARENTHESIS("("), RIGHT_PARENTHESIS(")"),
-    LEFT_SQUARE("["), RIGHT_SQUARE("]"),
-    LEFT_BRACKET("{"),   RIGHT_BRACKET("}"),
-    COMMA(","), DOT("."), COLON(":"), SEMICOLON(";"),
+    LEFT_PARENTHESIS(Precedence.CALL_INDEX, "("), RIGHT_PARENTHESIS(Precedence.LOWEST, ")"), // Last parenthesis should be LOWEST
+    LEFT_SQUARE(Precedence.CALL_INDEX, "["), RIGHT_SQUARE(Precedence.LOWEST, "]"),
+    LEFT_BRACKET("{"),   RIGHT_BRACKET("}"),    // No precedence
+    COMMA(","), DOT(Precedence.CALL_INDEX, "."), COLON(":"), SEMICOLON(";"),
     QUESTION_MARK("?"),
 
     // Literals
@@ -47,64 +47,68 @@ public enum TokenType {
     STRING("str", "string"),
 
     // Logical symbols
-    EQUALS("=="),
-    NOT_EQUALS("!="),
-    GREATER(">"),
-    LESSER("<"),
-    GREATER_EQUAL(">="),
-    LESSER_EQUAL("<="),
+    EQUALS(Precedence.EQUALITY, "=="),
+    NOT_EQUALS(Precedence.EQUALITY, "!="),
+    GREATER(Precedence.COMPARISON, ">"),
+    LESSER(Precedence.COMPARISON, "<"),
+    GREATER_EQUAL(Precedence.COMPARISON, ">="),
+    LESSER_EQUAL(Precedence.COMPARISON, "<="),
 
     // Arithmetical symbols
-    ASSIGN("="),
-    PLUS("+"),
-    PLUS_ASSIGN("+="),
-    PLUS_ONE("++"),
-    MINUS("-"),
-    MINUS_ASSIGN("-="),
-    MINUS_ONE("--"),
-    TIMES("*"),
-    TIMES_ASSIGN("*="),
-    POWER("**"),
-    POWER_ASSIGN("**="),
-    DIVIDE("/"),
-    DIVIDE_ASSIGN("/="),
-    MODULO("%"),
-    MODULO_ASSIGN("%="),
-    LEFT_SHIFT("<<"),
-    LEFT_SHIFT_ASSIGN("<<="),
-    RIGHT_SHIFT(">>"),
-    RIGHT_SHIFT_ASSIGN(">>="),
+    ASSIGN(Precedence.ASSIGNMENT, "="),
+    PLUS(Precedence.SUM, "+"),
+    PLUS_ASSIGN(Precedence.ASSIGNMENT, "+="),
+    PLUS_ONE(Precedence.POSTFIX, "++"),
+    MINUS(Precedence.SUM,"-"),
+    MINUS_ASSIGN(Precedence.ASSIGNMENT, "-="),
+    MINUS_ONE(Precedence.POSTFIX, "--"),
+    TIMES(Precedence.PRODUCT,"*"),
+    TIMES_ASSIGN(Precedence.ASSIGNMENT, "*="),
+    POWER(Precedence.EXPONENT, "**"),
+    POWER_ASSIGN(Precedence.ASSIGNMENT, "**="),
+    DIVIDE(Precedence.PRODUCT, "/"),
+    DIVIDE_ASSIGN(Precedence.ASSIGNMENT, "/="),
+    MODULO(Precedence.PRODUCT ,"%"), // "a * b % c" should evaluate as "(a * b) % c
+    MODULO_ASSIGN(Precedence.ASSIGNMENT, "%="),
+    LEFT_SHIFT(Precedence.BITWISE_SHIFT, "<<"),
+    LEFT_SHIFT_ASSIGN(Precedence.ASSIGNMENT, "<<="),
+    RIGHT_SHIFT(Precedence.BITWISE_SHIFT, ">>"),
+    RIGHT_SHIFT_ASSIGN(Precedence.ASSIGNMENT, ">>="),
 
     // Logical operations
-    AND("and", "AND", "&&"),
-    NAND("nand", "NAND", "!&&"),
-    OR("or", "OR", "||"),
-    NOR("nor", "NOR", "!||"),
-    NOT("not", "NOT", "!"),
-    XOR("xor", "XOR", "^^"),
-    XNOR("xnor", "XNOR", "xand", "XAND", "!^^"),
+    AND(Precedence.LOGICAL_AND, "and", "AND", "&&"),
+    NAND(Precedence.LOGICAL_AND, "nand", "NAND", "!&&"),
+    OR(Precedence.LOGICAL_OR, "or", "OR", "||"),
+    NOR(Precedence.LOGICAL_OR, "nor", "NOR", "!||"),
+    NOT(Precedence.PREFIX, "not", "NOT", "!"),
+    XOR(Precedence.LOGICAL_XOR, "xor", "XOR", "^^"),
+    XNOR(Precedence.LOGICAL_XOR, "xnor", "XNOR", "xand", "XAND", "!^^"),
 
     // Bitwise operations
-    BIT_AND("&"),
-    BIT_AND_ASSIGN("&="),
-    BIT_OR("|"),
-    BIT_OR_ASSIGN("|="),
-    BIT_NOT("~"),
-    BIT_NOT_ASSIGN("~="),
-    BIT_XOR("^"),
-    BIT_XOR_ASSIGN("^=");
+    BIT_AND(Precedence.BITWISE_AND, "&"),
+    BIT_AND_ASSIGN(Precedence.ASSIGNMENT, "&="),
+    BIT_OR(Precedence.BITWISE_OR, "|"),
+    BIT_OR_ASSIGN(Precedence.ASSIGNMENT, "|="),
+    BIT_NOT(Precedence.PREFIX, "~"),
+    BIT_NOT_ASSIGN(Precedence.ASSIGNMENT, "~="),
+    BIT_XOR(Precedence.BITWISE_XOR, "^"),
+    BIT_XOR_ASSIGN(Precedence.ASSIGNMENT, "^=");
 
     private static final Map<String, TokenType> SYMBOLS = new HashMap<>();
     private final String[] aliases;
+    private final Precedence precedence;
 
-    TokenType() {
-        this.aliases = new String[0];
-    }
-
-    // Varargs, admits infinite parameters and puts them into an array
-    TokenType(String... aliases) {
+    // Only operators have different precedence, so we set that one manually
+    TokenType(Precedence precedence, String... aliases) {
+        this.precedence = precedence;
         this.aliases = aliases;
     }
+
+    TokenType(String... aliases) {
+        this.precedence = Precedence.LOWEST;
+        this.aliases = aliases;
+    }
+
 
     // Run once AFTER all the enums have been created
     static {

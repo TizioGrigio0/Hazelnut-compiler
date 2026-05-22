@@ -14,3 +14,5 @@ It's possible to define the type of the number (int, float, double) by simply ad
 ### "_" is an ignored character for numbers
 The character _"\_"_ is an ignored character in numbers, for example, `1_000_000` = `1000000`
 This doesn't apply for identifiers given throughout the code, for example, `x` != `x_` != `_x` != `_x_`
+
+AND has higher precedence than OR

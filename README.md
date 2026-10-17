@@ -6,7 +6,7 @@ Compiler for a custom-made language that I made as a project in the free time.
 
 ## Progress status
 - Lexer ✔️ (Fully working)
-- Parser ⏳ (WIP)
+- Parser ⏳ (~40%)
 
 ## Error reporting
 The compiler will print a detailed list of all the compile-time errors and warnings, eventually stopping the compilation if they are fatal

@@ -23,6 +23,7 @@ public enum Precedence {
     PREFIX,
     CALL_INDEX,      // () []
     POSTFIX,        // ++ --
+    HIGHEST,
     // High precedence = First thing processed
 
 }

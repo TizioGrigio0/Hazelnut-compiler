@@ -1,7 +1,14 @@
 - Ability to declare an index in foreach
 - Pattern matching
 - options type
+- char in utf-8
+- iterators
+- arrays
 
 OPTIMIZATIONS TO DO:
 Double negation gets cut out at compile time
 Multiplications by powers of 2 should just be a shift operation to the left, two to the n-th power should just be a 1 at the n-th+1 position
+Multiplications and divisions by 1 should not be calculated
+Additions and subtractions by 0 should not be calculated
+Powers of one 1 should not be calculated
+Numbers to the power of 1 should not be calculated

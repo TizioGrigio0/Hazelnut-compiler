@@ -8,12 +8,15 @@ public class Token {
     private final int line;             // Token line
     private final int position;         // Token position in the line
 
-    public Token(TokenType type, String value, int index, int line, int position) {
+    private final String lineContent;   // The whole content of the line (used for errors)
+
+    public Token(TokenType type, String value, int index, int line, int position, String lineContent) {
         this.type = type;
         this.value = value;
         this.index = index;
         this.line = line;
         this.position = position;
+        this.lineContent = lineContent;
     }
 
     public boolean isInvalid() {
@@ -23,6 +26,14 @@ public class Token {
     public void setValue(String newValue) {
         this.value = newValue;
     }
+    public String getValue() { return this.value; }
+
+    public TokenType getType() { return this.type; }
+    public int getLine() { return line; }
+    public int getIndex() { return index; }
+    public int getPosition() { return position; }
+
+    public String getLineContent() { return lineContent; }
 
     @Override
     public String toString() {

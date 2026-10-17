@@ -1,0 +1,6 @@
+# The following are expressions. The compiler will throw errors in case they are malformed
+5+5;                    # Numerical expression
+x;                      # Name expression
+x+6;
+6+x;
+6 + x * 35.0;           # Many expressions get combined into a single big expression through recursion

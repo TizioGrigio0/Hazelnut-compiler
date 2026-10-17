@@ -1,0 +1,3 @@
+x + 42          # Gives the error "Missing semicolon"
+x + + 42;       # Gives the error "Expected expression, but found '+'"
+x + 42          # If we're missing the semicolon only on the last line, it will give a warning instead

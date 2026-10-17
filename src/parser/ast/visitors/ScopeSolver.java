@@ -1,6 +1,4 @@
-package ast.visitors;
-
-import ast.*;
+package parser.ast.visitors;
 
 public class ScopeSolver {
 

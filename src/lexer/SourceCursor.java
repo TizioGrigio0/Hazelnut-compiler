@@ -17,7 +17,7 @@ public class SourceCursor {
     private int tokenStart = 0;
     private int tokenStartLine = 0;
 
-    private ArrayList<Integer> lineFirstIndex = new ArrayList<Integer>();
+    private ArrayList<Integer> lineFirstIndex = new ArrayList<>();
 
     // Constructors
     SourceCursor(String input) {
@@ -71,7 +71,7 @@ public class SourceCursor {
     /// Creates the token based on collected information
     public Token generateTokenHere(TokenType type) {
         if (type == TokenType.EOF) setTokenStart(); // If it's EOF token, then it shouldn't have any content
-        return new Token(type, this.input.substring(this.tokenStart, this.currentIndex), this.tokenStart, this.currentLine, this.firstPositionInLine);
+        return new Token(type, this.input.substring(this.tokenStart, this.currentIndex), this.tokenStart, this.currentLine, this.firstPositionInLine, this.getLineContent());
     }
 
     /// Returns whether the cursor is over the end of the input or not
@@ -99,7 +99,7 @@ public class SourceCursor {
     public String getLineContent() {
         if (isAtEnd()) return input.substring(lineStart, currentIndex);
         int tempIndex = currentIndex;
-        while (input.charAt(tempIndex) != '\n' && input.charAt(tempIndex) != '\0') tempIndex++;
+        while (input.length() > tempIndex && input.charAt(tempIndex) != '\n' && input.charAt(tempIndex) != '\0') tempIndex++;
         return input.substring(lineStart, tempIndex);
     }
 

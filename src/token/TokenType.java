@@ -20,7 +20,6 @@ public enum TokenType {
 
     // Literals
     BOOLEAN_LITERAL("true", "false", "TRUE", "FALSE"),
-    NULL_LITERAL("null", "NULL"),
     MAX_32("MAX_32"),                 // 0xFFFF_FFFF
     MAX_64("MAX_64"),                 // 0xFFFF_FFFF_FFFF_FFFF
 
@@ -56,6 +55,7 @@ public enum TokenType {
 
     // Arithmetical symbols
     ASSIGN(Precedence.ASSIGNMENT, "="),
+    SWAP(Precedence.ASSIGNMENT, "<=>"),         // "a <=> b" swaps 'a' and 'b' value
     PLUS(Precedence.SUM, "+"),
     PLUS_ASSIGN(Precedence.ASSIGNMENT, "+="),
     PLUS_ONE(Precedence.POSTFIX, "++"),

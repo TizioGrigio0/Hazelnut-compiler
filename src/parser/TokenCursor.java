@@ -1,6 +1,8 @@
 package parser;
 
 import token.Token;
+import token.TokenType;
+
 import java.util.List;
 
 public class TokenCursor {
@@ -23,7 +25,8 @@ public class TokenCursor {
     }
 
     public boolean isAtEnd() {
-        return currentIndex >= length;
+        // N.B: can't use peek in here, otherwise it's an infinite loop and goes into stack overflow
+        return currentIndex >= length || this.tokens.get(currentIndex).getType() == TokenType.EOF;
     }
     /// Returns the token at the currentIndex
     public Token peek() {
@@ -31,5 +34,9 @@ public class TokenCursor {
         return tokens.get(currentIndex);
     }
 
+    public Token previous() {
+        if (currentIndex - 1 >= 0 && currentIndex - 1 < length) return tokens.get(currentIndex - 1);
+        else return null;
+    }
 
 }
